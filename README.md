@@ -5,7 +5,7 @@
   <p></p>
 </div>
   
-This is a PyTorch implementation of the paper [Masked Visual Pre-training for Motor Control](). It contains the benchmark suite, pre-trained models, and the training code to reproduce the results from the paper.
+This is a PyTorch implementation of the paper [Masked Visual Pre-training for Motor Control](https://arxiv.org/abs/2203.06173). It contains the benchmark suite, pre-trained models, and the training code to reproduce the results from the paper.
 
 ### Installation
 
@@ -29,7 +29,7 @@ We provide pre-trained visual encoders used in the paper. The models are in the 
 <td align="center">ViT-S</td>
 <td align="left">MAE</td>
 <td align="left">in-the-wild</td>
-<td align="center">xxxxxx</td>
+<td align="center"></td>
 <td align="center"><a href="">model</a></td>
 </tr>
 <!-- ROW MAE-IN -->
@@ -37,7 +37,7 @@ We provide pre-trained visual encoders used in the paper. The models are in the 
 <td align="center">ViT-S</td>
 <td align="left">MAE</td>
 <td align="left">ImageNet</td>
-<td align="center">xxxxxx</td>
+<td align="center"></td>
 <td align="center"><a href="">model</a></td>
 </tr>
 <!-- ROW Supervised-IN -->
@@ -45,7 +45,7 @@ We provide pre-trained visual encoders used in the paper. The models are in the 
 <td align="center">ViT-S</td>
 <td align="left">Supervised</td>
 <td align="left">ImageNet</td>
-<td align="center">xxxxxx</td>
+<td align="center"></td>
 <td align="center"><a href="">model</a></td>
 </tr>
 <!-- END TABLE -->
@@ -87,7 +87,7 @@ If you find the code or pre-trained models useful in your research, please use t
 @article{Xiao2022
   title = {Masked Visual Pre-training for Motor Control},
   author = {Tete Xiao and Ilija Radosavovic and Trevor Darrell and Jitendra Malik},
-  journal = {arXiv:XXXX:XXXXX},
+  journal = {arXiv:2203.06173},
   year = {2022}
 }
 ```
