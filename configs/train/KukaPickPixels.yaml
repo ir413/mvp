@@ -1,0 +1,39 @@
+seed: 0
+torch_deterministic: False
+
+clip_observations: 5.0
+clip_actions: 1.0
+
+encoder:
+  model_type: maevit-s16
+  pretrain_dir: "/tmp/pretrained"
+  pretrain_type: hoi
+  freeze: True
+  emb_dim: 128
+
+policy:
+  pi_hid_sizes: [256, 128, 64]
+  vf_hid_sizes: [256, 128, 64]
+
+learn:
+  agent_name: franka_ppo
+  test: False
+  resume: 0
+  save_interval: 50
+  print_log: True
+
+  max_iterations: 2000
+
+  cliprange: 0.1
+  ent_coef: 0
+  nsteps: 32
+  noptepochs: 10
+  nminibatches: 4
+  max_grad_norm: 1
+  optim_stepsize: 0.0005  # same for supervised vit baseline
+  schedule: cos
+  gamma: 0.99
+  lam: 0.95
+  init_noise_std: 1.0
+
+  log_interval: 1

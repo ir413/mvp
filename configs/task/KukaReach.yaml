@@ -1,0 +1,41 @@
+name: KukaReach
+
+env:
+  numEnvs: 256
+  envSpacing: 1.5
+  episodeLength: 200
+  enableDebugVis: False
+  saveVis: False
+
+  goal_pos_init: [0.45, 0.0, 0.65]
+  goal_pos_delta: [0.2, 0.3, 0.2]
+
+  obs_type: oracle
+
+  dofVelocityScale: 0.1
+  actionScale: 7.5
+
+  goalDistRewardScale: 0.08
+  goalBonusRewardScale: 0.4
+  actionPenaltyScale: 0.01
+
+  asset:
+    assetRoot: "assets"
+    assetFileNameKuka: "urdf/kuka_allegro_description/kuka_allegro.urdf"
+
+sim:
+  substeps: 1
+  physx:
+    num_threads: 4
+    solver_type: 1
+    num_position_iterations: 12
+    num_velocity_iterations: 1
+    contact_offset: 0.005
+    rest_offset: 0.0
+    bounce_threshold_velocity: 0.2
+    max_depenetration_velocity: 1000.0
+    default_buffer_size_multiplier: 5.0
+    always_use_articulations: False
+
+task:
+  randomize: False
