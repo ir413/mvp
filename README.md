@@ -47,17 +47,17 @@ We provide pre-trained visual encoders used in the paper. The models are in the 
 <!-- END TABLE -->
 </tbody></table>
 
-You can use our pre-trained models directly in your code (e.g., to extract image features) or use them with our benchmark suite and RL training code. We provde instructions for both use-cases next.
+You can use our pre-trained encoders directly in your code (e.g., to extract image features) or use them with our benchmark suite and RL training code. We provde instructions for both use-cases next.
 
-### Using pre-trained models in your code
+### Using pre-trained encoders in your code
 
 Install the python package:
 
 ```
-pip install git+https://github.com/ir413/mvp-prepare
+pip install git+https://github.com/ir413/mvp
 ```
 
-Import pre-trained models:
+Import pre-trained encoders:
 
 ```python
 import mvp
