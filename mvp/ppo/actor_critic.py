@@ -146,11 +146,9 @@ class Encoder(nn.Module):
             pretrain_path = os.path.join(pretrain_dir, pretrain_fname)
         else:
             pretrain_path = "none"
-        err_str = f"{pretrain_path} does not exist."
-        assert pretrain_type == "none" or os.path.exists(pretrain_path), err_str
-        model_func = vit.vit_s16 if "s16" in model_type else vit.vit_b16
-        self.backbone, gap_dim = model_func(pretrain_path)
-        if freeze is True:
+        assert pretrain_type == "none" or os.path.exists(pretrain_path)
+        self.backbone, gap_dim = vit.vit_s16(pretrain_path)
+        if freeze:
             self.backbone.freeze()
         self.freeze = freeze
         self.projector = nn.Linear(gap_dim, emb_dim)

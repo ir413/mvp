@@ -63,21 +63,8 @@ class VisionTransformer(timm.models.vision_transformer.VisionTransformer):
             if p.requires_grad:
                 trainable_params.append(name)
 
-        print("Trainable parameters in the encoder:")
-        print(trainable_params)
-
-
-def vit_b16(pretrained, **kwargs):
-    model = VisionTransformer(
-        patch_size=16, embed_dim=768, depth=12, num_heads=12, mlp_ratio=4, qkv_bias=True,
-        norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
-    assert os.path.exists(pretrained) or pretrained in ["none"]
-    # load from checkpoint
-    if pretrained != "none":
-        load_checkpoint(pretrained, model)
-        print("Loaded encoder from: {}".format(pretrained))
-    hidden_dim = 768
-    return model, hidden_dim
+        #print("Trainable parameters in the encoder:")
+        #print(trainable_params)
 
 
 def vit_s16(pretrained, **kwargs):

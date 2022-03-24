@@ -12,8 +12,7 @@ setup(
     packages=find_packages(),
     python_requires=">=3.6.*",
     install_requires=[
-        "gym",
-        "omegaconf",
-        "hydra-core>=1.1",
+        "iopath",
+        "timm",
     ],
 )
