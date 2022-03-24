@@ -29,7 +29,7 @@ We provide pre-trained visual encoders used in the paper. The models are in the 
 <td align="center">ViT-S</td>
 <td align="left">MAE</td>
 <td align="left">in-the-wild</td>
-<td align="center">fe6e30eb4256fae298ea0a6c6b4c1ae7</td>
+<td align="center"><tt>fe6e30</tt></td>
 <td align="center"><a href="https://www.dropbox.com/s/51fasmar8hjfpeh/mae_pretrain_hoi_vit_small.pth">model</a></td>
 </tr>
 <!-- ROW MAE-IN -->
@@ -37,7 +37,7 @@ We provide pre-trained visual encoders used in the paper. The models are in the 
 <td align="center">ViT-S</td>
 <td align="left">MAE</td>
 <td align="left">ImageNet</td>
-<td align="center">29a004bd4332f97cd22f55c1da26bc15</td>
+<td align="center"><tt>29a004</tt></td>
 <td align="center"><a href="https://www.dropbox.com/s/3whtrak5wsfzoaw/mae_pretrain_imagenet_vit_small.pth">model</a></td>
 </tr>
 <!-- ROW Supervised-IN -->
@@ -45,7 +45,7 @@ We provide pre-trained visual encoders used in the paper. The models are in the 
 <td align="center">ViT-S</td>
 <td align="left">Supervised</td>
 <td align="left">ImageNet</td>
-<td align="center">f8f23ba960af1017783c9b975875d36d</td>
+<td align="center"><tt>f8f23b</tt></td>
 <td align="center"><a href="https://www.dropbox.com/s/dw3uf5aff6yzmx3/sup_pretrain_imagenet_vit_small.pth">model</a></td>
 </tr>
 <!-- END TABLE -->
