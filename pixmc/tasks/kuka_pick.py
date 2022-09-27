@@ -450,6 +450,10 @@ class KukaPick(BaseTask):
         self.root_state_tensor[env_ids, self.env_object_ind, 0] = self.object_pos_init[0] + delta_x
         self.root_state_tensor[env_ids, self.env_object_ind, 1] = self.object_pos_init[1] + delta_y
         self.root_state_tensor[env_ids, self.env_object_ind, 2] = self.object_z_init
+        self.root_state_tensor[env_ids, self.env_object_ind, 3:6] = 0.0
+        self.root_state_tensor[env_ids, self.env_object_ind, 6] = 1.0
+        self.root_state_tensor[env_ids, self.env_object_ind, 7:10] = 0.0
+        self.root_state_tensor[env_ids, self.env_object_ind, 10:13] = 0.0
 
         self.gym.set_actor_root_state_tensor_indexed(
             self.sim,
