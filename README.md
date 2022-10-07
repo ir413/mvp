@@ -1,76 +1,85 @@
-## Masked Visual Pre-training for Motor Control
+## Masked Visual Pre-training for Robotics
 
 <div align="center">
-  <image src="assets/figs/teaser.png" width="360px" />
+  <image src="assets/figs/teaser_real.png" width="720px" />
   <p></p>
 </div>
-  
-This is a PyTorch implementation of the paper [Masked Visual Pre-training for Motor Control](https://arxiv.org/abs/2203.06173). It contains the benchmark suite, pre-trained models, and the training code to reproduce the results from the paper.
 
-### Pre-trained visual enocoders
+### Overview
 
-We provide pre-trained visual encoders used in the paper. The models are in the same format as [mae](https://github.com/facebookresearch/mae) and [timm](https://github.com/rwightman/pytorch-image-models):
+This repository contains the PyTorch implementation of the following two papers:
+
+- [Masked Visual Pre-training for Motor Control](https://arxiv.org/abs/2203.06173)
+- [Real-World Robot Learning with Masked Visual Pre-training](https://arxiv.org/abs/2210.03109)
+
+It includes the pre-trained vision models and RL/BC training code we used for the papers.
+
+### Pre-trained vision enocoders
+
+We provide our pre-trained vision encoders. The models are in the same format as [mae](https://github.com/facebookresearch/mae) and [timm](https://github.com/rwightman/pytorch-image-models):
 
 <table><tbody>
 <!-- START TABLE -->
 <!-- TABLE HEADER -->
 <th valign="bottom">backbone</th>
+<th valign="bottom">params</th>
+<th valign="bottom">images</th>
 <th valign="bottom">objective</th>
-<th valign="bottom">data</th>
 <th valign="bottom">md5</th>
 <th valign="bottom">download</th>
 <!-- TABLE BODY -->
-<!-- ROW MAE-HOI -->
+<!-- ROW vits-mae-hoi -->
 <tr>
 <td align="center">ViT-S</td>
-<td align="left">MAE</td>
-<td align="left">in-the-wild</td>
+<td align="center">22M</td>
+<td align="center">700K</td>
+<td align="center">MAE</td>
 <td align="center"><tt>fe6e30</tt></td>
-<td align="center"><a href="https://www.dropbox.com/s/51fasmar8hjfpeh/mae_pretrain_hoi_vit_small.pth?dl=1">model</a></td>
+<td align="center"><a href="https://berkeley.box.com/shared/static/m93ynem558jo8vltlads5rcmnahgsyzr.pth">model</a></td>
 </tr>
-<!-- ROW MAE-IN -->
+<!-- vitb-mae-egosoup -->
 <tr>
-<td align="center">ViT-S</td>
-<td align="left">MAE</td>
-<td align="left">ImageNet</td>
-<td align="center"><tt>29a004</tt></td>
-<td align="center"><a href="https://www.dropbox.com/s/3whtrak5wsfzoaw/mae_pretrain_imagenet_vit_small.pth?dl=1">model</a></td>
+<td align="center">ViT-B</td>
+<td align="center">86M</td>
+<td align="center">4.5M</td>
+<td align="center">MAE</td>
+<td align="center"><tt>526093</tt></td>
+<td align="center"><a href="https://berkeley.box.com/shared/static/0ckepd2ja3pi570z89ogd899cn387yut.pth">model</a></td>
 </tr>
-<!-- ROW Supervised-IN -->
+<!-- vitl-mae-egosoup -->
 <tr>
-<td align="center">ViT-S</td>
-<td align="left">Supervised</td>
-<td align="left">ImageNet</td>
-<td align="center"><tt>f8f23b</tt></td>
-<td align="center"><a href="https://www.dropbox.com/s/dw3uf5aff6yzmx3/sup_pretrain_imagenet_vit_small.pth?dl=1">model</a></td>
+<td align="center">ViT-L</td>
+<td align="center">307M</td>
+<td align="center">4.5M</td>
+<td align="center">MAE</td>
+<td align="center"><tt>5352b0</tt></td>
+<td align="center"><a href="https://berkeley.box.com/shared/static/6p0pc47mlpp4hhwlin2hf035lxlgddxr.pth">model</a></td>
 </tr>
 <!-- END TABLE -->
 </tbody></table>
 
-You can use our pre-trained encoders directly in your code (e.g., to extract image features) or use them with our benchmark suite and RL training code. We provde instructions for both use-cases next.
+You can use our pre-trained models directly in your code (e.g., to extract image features) or use them with our training code. We provde instructions for both use-cases next.
 
-### Using pre-trained encoders in your code
+### Using pre-trained models in your code
 
-Install the python package:
+Install [PyTorch](https://pytorch.org/get-started/locally/) and mvp package:
 
 ```
 pip install git+https://github.com/ir413/mvp
 ```
 
-Import pre-trained encoders:
+Import pre-trained models:
 
 ```python
 import mvp
 
-model = mvp.load("vits-mae-hoi")
+model = mvp.load("vitb-mae-egosoup")
 model.freeze()
 ```
 
 ### Benchmark suite and RL training code
 
-Please see [`INSTALL.md`](INSTALL.md) for installation instructions.
-
-### Example training commands
+Please see [`INSTALL.md`](INSTALL.md) for installation instructions and [`TASKS.md`](TASKS.md) for task descriptions. We provide example RL training and evaluation commands below:
 
 Train `FrankaPick` from states:
 
@@ -84,12 +93,6 @@ Train `FrankaPick` from pixels:
 python tools/train.py task=FrankaPickPixels
 ```
 
-Train on 8 GPUs:
-
-```
-python tools/train_dist.py num_gpus=8
-```
-
 Test a policy after N iterations:
 
 ```
@@ -98,7 +101,7 @@ python tools/train.py test=True headless=False logdir=/path/to/job resume=N
 
 ### Citation
 
-If you find the code or pre-trained models useful in your research, please use the following BibTeX entry:
+If you find the code or pre-trained models useful in your research, please consider citing an appropriate subset of the following papers:
 
 ```
 @article{Xiao2022
@@ -106,6 +109,13 @@ If you find the code or pre-trained models useful in your research, please use t
   author = {Tete Xiao and Ilija Radosavovic and Trevor Darrell and Jitendra Malik},
   journal = {arXiv:2203.06173},
   year = {2022}
+}
+
+@article{Radosavovic2022,
+  title = {Real-World Robot Learning with Masked Visual Pre-training},
+  author = {Ilija Radosavovic and Tete Xiao and Stephen James and Pieter Abbeel and Jitendra Malik and Trevor Darrell},
+  year = {2022},
+  journal = {CoRL}
 }
 ```
 
