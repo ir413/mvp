@@ -121,33 +121,29 @@ class ActorCritic(nn.Module):
 # Pixels
 ###############################################################################
 
-_HOI_MODELS = {
-    "maevit-s16": "mae_pretrain_hoi_vit_small.pth",
+_MODELS = {
+    "vits-mae-hoi": "mae_pretrain_hoi_vit_small.pth",
+    "vits-mae-in": "mae_pretrain_imagenet_vit_small.pth",
+    "vits-sup-in": "sup_pretrain_imagenet_vit_small.pth",
+    "vitb-mae-egosoup": "mae_pretrain_egosoup_vit_base.pth",
+    "vitl-256-mae-egosoup": "mae_pretrain_egosoup_vit_large_256.pth",
 }
-
-_IN_MODELS = {
-    "vit-s16": "sup_pretrain_imagenet_vit_small.pth",
-    "maevit-s16": "mae_pretrain_imagenet_vit_small.pth",
+_MODEL_FUNCS = {
+    "vits": vit.vit_s16,
+    "vitb": vit.vit_b16,
+    "vitl": vit.vit_l16,
 }
 
 
 class Encoder(nn.Module):
 
-    def __init__(self, model_type, pretrain_dir, pretrain_type, freeze, emb_dim):
+    def __init__(self, model_name, pretrain_dir, freeze, emb_dim):
         super(Encoder, self).__init__()
-        assert pretrain_type in ["imagenet", "hoi", "none"]
-        if pretrain_type == "imagenet":
-            assert model_type in _IN_MODELS
-            pretrain_fname = _IN_MODELS[model_type]
-            pretrain_path = os.path.join(pretrain_dir, pretrain_fname)
-        elif pretrain_type == "hoi":
-            assert model_type in _HOI_MODELS
-            pretrain_fname = _HOI_MODELS[model_type]
-            pretrain_path = os.path.join(pretrain_dir, pretrain_fname)
-        else:
-            pretrain_path = "none"
-        assert pretrain_type == "none" or os.path.exists(pretrain_path)
-        self.backbone, gap_dim = vit.vit_s16(pretrain_path)
+        assert model_name in _MODELS, f"Unknown model name {model_name}"
+        model_func = _MODEL_FUNCS[model_name.split("-")[0]]
+        img_size = 256 if "-256-" in model_name else 224
+        pretrain_path = os.path.join(pretrain_dir, _MODELS[model_name])
+        self.backbone, gap_dim = model_func(pretrain_path, img_size=img_size)
         if freeze:
             self.backbone.freeze()
         self.freeze = freeze
@@ -176,27 +172,21 @@ class PixelActorCritic(nn.Module):
         super(PixelActorCritic, self).__init__()
         assert encoder_cfg is not None
 
-        # Encoder params
-        model_type = encoder_cfg["model_type"]
-        pretrain_dir = encoder_cfg["pretrain_dir"]
-        pretrain_type = encoder_cfg["pretrain_type"]
-        freeze = encoder_cfg["freeze"]
+        # Encoder
         emb_dim = encoder_cfg["emb_dim"]
 
-        # Policy params
-        actor_hidden_dim = policy_cfg["pi_hid_sizes"]
-        critic_hidden_dim = policy_cfg["vf_hid_sizes"]
-        activation = nn.SELU()
-
-        # Obs and state encoders
         self.obs_enc = Encoder(
-            model_type=model_type,
-            pretrain_dir=pretrain_dir,
-            pretrain_type=pretrain_type,
-            freeze=freeze,
+            model_name=encoder_cfg["name"],
+            pretrain_dir=encoder_cfg["pretrain_dir"],
+            freeze=encoder_cfg["freeze"],
             emb_dim=emb_dim
         )
         self.state_enc = nn.Linear(states_shape[0], emb_dim)
+
+        # AC params
+        actor_hidden_dim = policy_cfg["pi_hid_sizes"]
+        critic_hidden_dim = policy_cfg["vf_hid_sizes"]
+        activation = nn.SELU()
 
         # Policy
         actor_layers = []

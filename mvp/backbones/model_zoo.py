@@ -8,7 +8,7 @@ import sys
 
 from urllib import request as urlrequest
 
-from mvp.backbones.vit import vit_s16
+from mvp.backbones.vit import vit_s16, vit_b16, vit_l16
 
 
 # Model download cache directory
@@ -16,9 +16,16 @@ _DOWNLOAD_CACHE = "/tmp/mvp-download-cache"
 
 # Pretrained models
 _MODELS = {
-    "vits-mae-hoi": "https://www.dropbox.com/s/51fasmar8hjfpeh/mae_pretrain_hoi_vit_small.pth",
-    "vits-mae-in": "https://www.dropbox.com/s/3whtrak5wsfzoaw/mae_pretrain_imagenet_vit_small.pth",
-    "vits-sup-in": "https://www.dropbox.com/s/dw3uf5aff6yzmx3/sup_pretrain_imagenet_vit_small.pth",
+    "vits-mae-hoi": "https://berkeley.box.com/shared/static/m93ynem558jo8vltlads5rcmnahgsyzr.pth",
+    "vits-mae-in": "https://berkeley.box.com/shared/static/qlsjkv03nngu37eyvtjikfe7rz14k66d.pth",
+    "vits-sup-in": "https://berkeley.box.com/shared/static/95a4ncqrh1o7llne2b1gpsfip4dt65m4.pth",
+    "vitb-mae-egosoup": "https://berkeley.box.com/shared/static/0ckepd2ja3pi570z89ogd899cn387yut.pth",
+    "vitl-256-mae-egosoup": "https://berkeley.box.com/shared/static/6p0pc47mlpp4hhwlin2hf035lxlgddxr.pth",
+}
+_MODEL_FUNCS = {
+    "vits": vit_s16,
+    "vitb": vit_b16,
+    "vitl": vit_l16,
 }
 
 
@@ -60,7 +67,7 @@ def download_url(url, dst_file_path, chunk_size=8192, progress_hook=_progress_ba
     return bytes_so_far
 
 
-def cache_url(url_or_file, cache_dir=_DOWNLOAD_CACHE, download=True):
+def cache_url(model_name, url_or_file, cache_dir=_DOWNLOAD_CACHE, download=True):
     """Download the file specified by the URL to the cache_dir and return the path to
     the cached file. If the argument is not a URL, simply return it as is.
     """
@@ -68,7 +75,7 @@ def cache_url(url_or_file, cache_dir=_DOWNLOAD_CACHE, download=True):
     if not is_url:
         return url_or_file
     url = url_or_file
-    fname = os.path.basename(url)
+    fname = model_name + ".pth"
     cache_file_path = os.path.join(cache_dir, fname)
     if os.path.exists(cache_file_path):
         return cache_file_path
@@ -88,8 +95,9 @@ def available_models():
 
 def load(name):
     """Loads a pre-trained model."""
-    assert name in _MODELS.keys(), \
-        "Model {} not available".format(name)
-    pretrained = cache_url(_MODELS[name])
-    model, _ = vit_s16(pretrained)
+    assert name in _MODELS.keys(), "Model {} not available".format(name)
+    pretrained = cache_url(name, _MODELS[name])
+    model_func = _MODEL_FUNCS[name.split("-")[0]]
+    img_size = 256 if "-256-" in name else 224
+    model, _ = model_func(pretrained=pretrained, img_size=img_size)
     return model
