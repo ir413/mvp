@@ -5,9 +5,8 @@ clip_observations: 5.0
 clip_actions: 1.0
 
 encoder:
-  model_type: maevit-s16
+  name: vits-mae-hoi
   pretrain_dir: "/tmp/pretrained"
-  pretrain_type: hoi
   freeze: True
   emb_dim: 128
 
