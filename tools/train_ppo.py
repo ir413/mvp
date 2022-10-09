@@ -12,8 +12,8 @@ from mvp.utils.hydra_utils import parse_sim_params, parse_task
 from mvp.utils.hydra_utils import process_ppo
 
 
-@hydra.main(config_name="config", config_path="../configs")
-def train(cfg: omegaconf.DictConfig):
+@hydra.main(config_name="config", config_path="../configs/ppo")
+def train_ppo(cfg: omegaconf.DictConfig):
 
     # Assume no multi-gpu training
     assert cfg.num_gpus == 1
@@ -41,4 +41,4 @@ def train(cfg: omegaconf.DictConfig):
 
 
 if __name__ == '__main__':
-    train()
+    train_ppo()

@@ -1,8 +1,8 @@
 ## Getting Started
 
-This document provides brief instllation and training instructions.
+This document provides brief installation and training instructions.
 
-- For general inforation, please see [`README.md`](README.md)
+- For general information, please see [`README.md`](README.md)
 - For tasks descriptions, please see [`TASKS.md`](TASKS.md)
 
 **Notes:**
@@ -59,19 +59,19 @@ pip install -e .
 Train `FrankaPick` from states:
 
 ```
-python tools/train.py task=FrankaPick
+python tools/train_ppo.py task=FrankaPick
 ```
 
 Train `FrankaPick` from pixels:
 
 ```
-python tools/train.py task=FrankaPickPixels
+python tools/train_ppo.py task=FrankaPickPixels
 ```
 
 Test a policy after N iterations:
 
 ```
-python tools/train.py test=True headless=False logdir=/path/to/job resume=N
+python tools/train_ppo.py test=True headless=False logdir=/path/to/job resume=N
 ```
 
 ### Imitation Learning with BC
