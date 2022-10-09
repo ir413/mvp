@@ -12,7 +12,7 @@ This repository contains the PyTorch implementation of the following two papers:
 - [Masked Visual Pre-training for Motor Control](https://arxiv.org/abs/2203.06173)
 - [Real-World Robot Learning with Masked Visual Pre-training](https://arxiv.org/abs/2210.03109)
 
-It includes the pre-trained vision models and RL/BC training code we used for the papers.
+It includes the pre-trained vision models and PPO/BC training code used in the papers.
 
 ### Pre-trained vision enocoders
 
@@ -77,27 +77,9 @@ model = mvp.load("vitb-mae-egosoup")
 model.freeze()
 ```
 
-### Benchmark suite and RL training code
+### Benchmark suite and training code
 
-Please see [`INSTALL.md`](INSTALL.md) for installation instructions and [`TASKS.md`](TASKS.md) for task descriptions. We provide example RL training and evaluation commands below:
-
-Train `FrankaPick` from states:
-
-```
-python tools/train.py task=FrankaPick
-```
-
-Train `FrankaPick` from pixels:
-
-```
-python tools/train.py task=FrankaPickPixels
-```
-
-Test a policy after N iterations:
-
-```
-python tools/train.py test=True headless=False logdir=/path/to/job resume=N
-```
+Please see [`INSTALL.md`](INSTALL.md) for installation instructions, [`TASKS.md`](TASKS.md) for task descriptions, and [`TRAIN.md`](TRAIN.md) for training instructions.
 
 ### Citation
 

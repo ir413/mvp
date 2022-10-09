@@ -3,8 +3,8 @@
 **Notes:**
 
 - The code has been tested with PyTorch 1.10, CUDA 11.3 and cuDNN 8.2
-- All experiments were performed using IsaacGym **Preview 2**
-- The code has *not* been tested using IsaacGym **Preview 3**
+- All experiments in the [initial paper](https://arxiv.org/abs/2203.06173) were performed using IsaacGym **Preview 2**
+- The code should be compatible with IsaacGym Preview 3/4 (not tested extensively)
 
 Create a conda environment:
 
@@ -19,7 +19,7 @@ Install [PyTorch](https://pytorch.org/get-started/locally/):
 conda install pytorch torchvision -c pytorch
 ```
 
-Install IsaacGym (download [here](https://developer.nvidia.com/isaac-gym)):
+For RL experiments, install [IsaacGym](https://developer.nvidia.com/isaac-gym):
 
 ```
 cd /path/to/isaac-gym/python
@@ -47,4 +47,4 @@ cd /path/to/code/mvp
 pip install -e .
 ```
 
-Please see [`README.md`](README.md) for example training commands.
+Please see [`TRAIN.md`](TRAIN.md) for example training commands.

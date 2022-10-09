@@ -1,6 +1,22 @@
-# Tasks
+# PixMC Benchmark Suite
 
-## Common Franka Settings
+**Robots:**
+
+- [Franka](TASKS.md#franka-robot)
+- [Kuka](TASKS.md#kuka-robot)
+
+**Tasks:**
+
+- [FrankaReach](TASKS.md#frankareach-task)
+- [FrankaCabinet](TASKS.md#frankacabinet-task)
+- [FrankaPick](TASKS.md#frankapick-task)
+- [FrankaMove](TASKS.md#frankamove-task)
+- [KukaReach](TASKS.md#kukareach-task)
+- [KukaCabinet](TASKS.md#kukacabinet-task)
+- [KukaPick](TASKS.md#kukapick-task)
+- [KukaMove](TASKS.md#kukamove-task)
+
+## Franka Robot
 
 **Robot randomization:**
 
@@ -36,7 +52,7 @@ Egocentric `224x224x3` RGB image (examples shown above).
 | 0:7   | delta dof pos | arm         |
 | 7:9   | delta dof pos | fingers     |
 
-## Common Kuka Settings
+## Kuka Robot
 
 **Robot randomization:**
 
@@ -87,7 +103,7 @@ Egocentric `224x224x3` RGB image (examples shown above).
 | 15:19 | delta dof pos | ring finger   |
 | 19:23 | delta dof pos | thumb         |
 
-## FrankaReach 
+## FrankaReach Task
 
 <img src="assets/gifs/franka_reach.gif" align="middle" width="360"/>
 
@@ -126,7 +142,7 @@ reward = 0.08 * goal_dist \
 
 10 consecutive timesteps with hand at the goal.
 
-## FrankaCabinet
+## FrankaCabinet Task
 
 <img src="assets/gifs/franka_cabinet.gif" align="middle" width="360"/>
 
@@ -173,7 +189,7 @@ reward = 0.06 * lfinger_handle_dist \
 
 10 consecutive timesteps with fully open drawer and gripper at handle.
 
-## FrankaPick
+## FrankaPick Task
 
 <img src="assets/gifs/franka_pick.gif" align="middle" width="360"/>
 
@@ -197,7 +213,7 @@ object_pos[1] = init_object_pos[1] + uniform(-0.2, 0.2)
 |:------|:-----|:------------------|
 | 0:3   | xyz  | lfinger pos       |
 | 3:6   | xyz  | rfinger pos       |
-| 6:9   | xyz  | object pos        | 
+| 6:9   | xyz  | object pos        |
 | 9:12  | xyz  | lfinger to object |
 | 12:15 | xyz  | rfinger to object |
 | 15:16 | d    | object to height  |
@@ -217,7 +233,7 @@ reward = 0.08 * lfinger_object_dist \
 
 10 consecutive timesteps with object at goal height.
 
-## FrankaMove
+## FrankaMove Task
 
 <img src="assets/gifs/franka_move.gif" align="middle" width="360"/>
 
@@ -273,7 +289,7 @@ reward = 0.08 * lfinger_object_dist \
 
 10 consecutive timesteps with object at goal location.
 
-## KukaReach
+## KukaReach Task
 
 <img src="assets/gifs/kuka_reach.gif" align="middle" width="360"/>
 
@@ -312,7 +328,7 @@ reward = 0.08 * goal_dist \
 
 10 consecutive timesteps with the index finger at the goal.
 
-## KukaCabinet
+## KukaCabinet Task
 
 <img src="assets/gifs/kuka_cabinet.gif" align="middle" width="360"/>
 
@@ -364,7 +380,7 @@ reward = 0.04 * index_handle_dist \
 
 10 consecutive timesteps with fully open drawer and hand at handle.
 
-## KukaPick
+## KukaPick Task
 
 <img src="assets/gifs/kuka_pick.gif" align="middle" width="360"/>
 
@@ -415,7 +431,7 @@ reward = 0.04 * index_object_dist \
 
 10 consecutive timesteps with object at goal height.
 
-## KukaMove
+## KukaMove Task
 
 <img src="assets/gifs/kuka_move.gif" align="middle" width="360"/>
 
