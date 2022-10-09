@@ -79,7 +79,7 @@ model.freeze()
 
 ### Benchmark suite and training code
 
-Please see [`INSTALL.md`](INSTALL.md) for installation instructions, [`TASKS.md`](TASKS.md) for task descriptions, and [`TRAIN.md`](TRAIN.md) for training instructions.
+Please see [`TASKS.md`](TASKS.md) for task descriptions and [`GETTING_STARTED.md`](GETTING_STARTED.md) for installation and training instructions.
 
 ### Citation
 

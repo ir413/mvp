@@ -1,10 +1,17 @@
-## Installation instructions
+## Getting Started
+
+This document provides brief instllation and training instructions.
+
+- For general inforation, please see [`README.md`](README.md)
+- For tasks descriptions, please see [`TASKS.md`](TASKS.md)
 
 **Notes:**
 
 - The code has been tested with PyTorch 1.10, CUDA 11.3 and cuDNN 8.2
 - All experiments in the [initial paper](https://arxiv.org/abs/2203.06173) were performed using IsaacGym **Preview 2**
 - The code should be compatible with IsaacGym Preview 3/4 (not tested extensively)
+
+### Installation instructions
 
 Create a conda environment:
 
@@ -47,4 +54,26 @@ cd /path/to/code/mvp
 pip install -e .
 ```
 
-Please see [`TRAIN.md`](TRAIN.md) for example training commands.
+### Reinforcement Learning with PPO
+
+Train `FrankaPick` from states:
+
+```
+python tools/train.py task=FrankaPick
+```
+
+Train `FrankaPick` from pixels:
+
+```
+python tools/train.py task=FrankaPickPixels
+```
+
+Test a policy after N iterations:
+
+```
+python tools/train.py test=True headless=False logdir=/path/to/job resume=N
+```
+
+### Imitation Learning with BC
+
+TODO
