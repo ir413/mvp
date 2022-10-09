@@ -76,4 +76,19 @@ python tools/train_ppo.py test=True headless=False logdir=/path/to/job resume=N
 
 ### Imitation Learning with BC
 
-TODO
+Steps:
+
+1. Record demonstrations (see `bc/dataset.py` for expected format)
+2. Train a policy on recorded demonstrations (example commands below)
+
+Train on real demos:
+
+```
+python tools/train_bc.py logdir=/path/to/job/dir
+```
+
+Train on sim demos:
+
+```
+python tools/train_bc.py --config-name sim.yaml logdir=/path/to/job/dir
+```

@@ -5,3 +5,5 @@ omegaconf
 setuptools
 tensorboard
 timm
+termcolor
+opencv-python

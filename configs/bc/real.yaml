@@ -1,0 +1,62 @@
+data:
+  type: real
+  demo_path: /path/to/real/demos/
+  num_train: 80
+  num_test: 0
+  valid_state_dim: 7
+  im_size: 224
+  max_shift: 0
+  lower_crop: True
+  cam: "ego"
+  color_jitter_prob: 0.0
+  color_jitter_param: [0.2, 0.2, 0.2, 0.1]
+  gray_scale_prob: 0.0
+  gaussian_blur_prob: 0.0
+  gaussian_blur_param: [.1, 2.]
+  joint_noise_std: 0.0
+  frame_skip: 0
+  gripper_scaling: 0.2
+
+actor:
+  joint_scaling: False
+  dof_lower_limits: [-3.110177, -2.180000, -3.110177, -0.110000, -3.110177, -1.750000, -3.110177, 0.0]
+  dof_upper_limits: [3.110177, 2.180000, 3.110177, 3.110177, 3.110177, 3.110177, 3.110177, 1.0]
+  state_dim: 8
+  action_dim: 8
+
+encoder:
+  name: vitb-mae-egosoup
+  pretrain_dir: "/tmp/pretrained"
+  freeze: True
+  emb_dim: 128
+  dropout: 0.0
+
+policy:
+  ws: [256, 128, 64]
+  init: "orthogonal"
+  dropout: 0.0
+
+train:
+  warmup_ep: 40
+  num_ep: 400
+  mb_size: 128
+  lr: 0.001
+  wd: 0.01
+  test_freq: 20
+  clip_norm: 0.0
+
+seed: 0
+torch_deterministic: False
+num_gpus: 1
+
+test: False
+resume: 0
+logdir: "/tmp/debug"
+
+defaults:
+  - hydra/job_logging: disabled
+
+hydra:
+  output_subdir: null
+  run:
+    dir: .

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Train a policy with PPO."""
+"""Train a policy with BC."""
 
 import hydra
 import omegaconf
@@ -9,10 +9,11 @@ import os
 from mvp.utils.hydra_utils import omegaconf_to_dict, print_dict, dump_cfg
 from mvp.utils.hydra_utils import set_np_formatting, set_seed
 from mvp.utils.hydra_utils import parse_sim_params, parse_task
-from mvp.utils.hydra_utils import process_ppo
+
+import mvp.bc.bc as bc
 
 
-@hydra.main(config_name="config", config_path="../configs/ppo")
+@hydra.main(config_name="real", config_path="../configs/bc")
 def train(cfg: omegaconf.DictConfig):
 
     # Assume no multi-gpu training
@@ -29,15 +30,17 @@ def train(cfg: omegaconf.DictConfig):
 
     # Set up python env
     set_np_formatting()
-    set_seed(cfg.train.seed, cfg.train.torch_deterministic)
+    set_seed(cfg.seed, cfg.torch_deterministic)
 
-    # Construct task
-    sim_params = parse_sim_params(cfg, cfg_dict)
-    env = parse_task(cfg, cfg_dict, sim_params)
+    # Construct env for sim
+    if cfg.data.type == "sim":
+        sim_params = parse_sim_params(cfg, cfg_dict)
+        vec_env = parse_task(cfg, cfg_dict, sim_params)
+    else:
+        vec_env = None
 
     # Perform training
-    ppo = process_ppo(env, cfg, cfg_dict, cfg.logdir, cfg.cptdir)
-    ppo.run(num_learning_iterations=cfg.train.learn.max_iterations, log_interval=cfg.train.learn.save_interval)
+    bc.train(cfg, vec_env)
 
 
 if __name__ == '__main__':

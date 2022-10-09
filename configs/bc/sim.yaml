@@ -1,0 +1,58 @@
+
+data:
+  type: sim
+  demo_path: /path/to/sim/demos/
+  num_train: 80
+  num_test: 20
+  im_size: 224
+  max_shift: 0
+
+actor:
+  joint_scaling: False
+  state_dim: 18
+  action_dim: 9
+
+encoder:
+  name: vitb-mae-egosoup
+  pretrain_dir: "/tmp/pretrained"
+  freeze: True
+  emb_dim: 128
+  dropout: 0.0
+
+policy:
+  ws: [256, 128, 64]
+  init: "orthogonal"
+  dropout: 0.0
+
+train:
+  warmup_ep: 40
+  num_ep: 400
+  mb_size: 128
+  lr: 0.001
+  wd: 0.01
+  test_freq: 20
+  clip_norm: 0.0
+
+physics_engine: "physx"
+pipeline: "gpu"
+sim_device: "cuda:0"
+rl_device: "cuda:0"
+graphics_device_id: 0
+headless: True
+
+seed: 0
+torch_deterministic: False
+num_gpus: 1
+
+test: False
+resume: 0
+logdir: "/tmp/debug"
+
+defaults:
+  - task: FrankaPickPixels
+  - hydra/job_logging: disabled
+
+hydra:
+  output_subdir: null
+  run:
+    dir: .
