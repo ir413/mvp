@@ -56,7 +56,6 @@ class KukaCabinet(BaseTask):
             num_obs = 77
             self.compute_observations = self.compute_oracle_obs
         else:
-            self.cam_crop = self.cfg["env"]["cam"]["crop"]
             self.cam_w = self.cfg["env"]["cam"]["w"]
             self.cam_h = self.cfg["env"]["cam"]["h"]
             self.cam_fov = self.cfg["env"]["cam"]["fov"]
@@ -66,7 +65,6 @@ class KukaCabinet(BaseTask):
             self.im_size = self.cfg["env"]["im_size"]
             num_obs = (3, self.im_size, self.im_size)
             self.compute_observations = self.compute_pixel_obs
-            assert self.cam_crop in ["center", "left"]
             assert self.cam_h == self.im_size
             assert self.cam_w % 2 == 0
 
@@ -608,7 +606,7 @@ class KukaCabinet(BaseTask):
         self.gym.render_all_camera_sensors(self.sim)
         self.gym.start_access_image_tensors(self.sim)
         for i in range(self.num_envs):
-            crop_l = (self.cam_w - self.im_size) // 2 if self.cam_crop == "center" else 0
+            crop_l = (self.cam_w - self.im_size) // 2
             crop_r = crop_l + self.im_size
             self.obs_buf[i] = self.cam_tensors[i][:, crop_l:crop_r, :3].permute(2, 0, 1).float() / 255.
             self.obs_buf[i] = (self.obs_buf[i] - self.im_mean) / self.im_std

@@ -12,7 +12,6 @@ env:
   im_size: 224
 
   cam:
-    crop: center
     w: 298
     h: 224
     fov: 120
