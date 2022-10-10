@@ -40,8 +40,6 @@ class KukaPickObject(BaseTask):
 
         self.up_axis = "z"
         self.up_axis_idx = 2
-
-        self.distX_offset = 0.04
         self.dt = 1 / 60.
 
         self.obj_asset_files = {
