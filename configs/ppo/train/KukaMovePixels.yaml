@@ -1,9 +1,6 @@
 seed: 0
 torch_deterministic: False
 
-clip_observations: 5.0
-clip_actions: 1.0
-
 encoder:
   name: vits-mae-hoi
   pretrain_dir: "/tmp/pretrained"

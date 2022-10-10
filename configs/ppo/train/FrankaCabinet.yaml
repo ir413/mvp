@@ -1,9 +1,6 @@
 seed: 0
 torch_deterministic: False
 
-clip_observations: 5.0
-clip_actions: 1.0
-
 policy:
   pi_hid_sizes: [256, 128, 64]
   vf_hid_sizes: [256, 128, 64]
