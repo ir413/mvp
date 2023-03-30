@@ -10,7 +10,7 @@ setup(
     version="0.1.0",
     description="Masked Visual Pre-training for Motor Control",
     packages=find_packages(),
-    python_requires=">=3.6.*",
+    python_requires=">=3.6",
     install_requires=[
         "iopath",
         "timm",
